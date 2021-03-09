@@ -47,8 +47,8 @@ Download the DIARETDB1 data set page:
  ## The segmentation perfromances on test images are: 
   
  * Sample examples are:
- Predicted output:  ![Predicted blood vessels](images/pred.png)
- * Other outputs under Multi-class/test/pred/
+ Predicted output:  ![Predicted blood vessels](images/Result.png)
+ * Other outputs under Multi-class Segmentation/pred/
  
 
           
