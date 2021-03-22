@@ -7,14 +7,16 @@ from tensorflow.keras.models import *
 from tensorflow.keras.layers import *
 from tensorflow.keras.optimizers import *
 from tensorflow.keras.callbacks import ModelCheckpoint, LearningRateScheduler
-from tensorflow.keras import backend as keras
+from tensorflow.keras import backend as K
 import tensorflow as tf
 
 
 def dice_coef(y_true, y_pred, smooth=1):
-    intersection = keras.sum(y_true * y_pred, axis=[1,2,3])
-    union = keras.sum(y_true, axis=[1,2,3]) + keras.sum(y_pred, axis=[1,2,3])
-    return keras.mean( (2. * intersection + smooth) / (union + smooth), axis=0)
+    intersection = K.sum(y_true * y_pred, axis=[1,2,3])
+    union = K.sum(y_true, axis=[1,2,3]) + K.sum(y_pred, axis=[1,2,3])
+    return K.mean( (2. * intersection + smooth) / (union + smooth), axis=0)
+
+
 
 def dice_coef_loss(y_true, y_pred):
     return -dice_coef(y_true, y_pred)
@@ -22,7 +24,7 @@ def dice_coef_loss(y_true, y_pred):
 
 
 
-def unet(pretrained_weights = None,input_size=(128,128,1), n_class=3):
+def unet(pretrained_weights = None,input_size=(512,512,1), n_class=3):
     inputs = tf.keras.Input(shape=input_size)
     conv1 = Conv2D(32, 3, activation = 'relu', padding = 'same', kernel_initializer = 'he_normal')(inputs)
     conv1 = BatchNormalization()(conv1)
@@ -70,11 +72,12 @@ def unet(pretrained_weights = None,input_size=(128,128,1), n_class=3):
     merge8 = concatenate([conv1,up8], axis = 3)
     conv8 = Conv2D(32, 3, activation = 'relu', padding = 'same', kernel_initializer = 'he_normal')(merge8)
     conv8 = Conv2D(32, 3, activation = 'relu', padding = 'same', kernel_initializer = 'he_normal')(conv8)
-    conv9 = Conv2D(n_class, 1, activation = 'sigmoid')(conv8)
+    conv9 = Conv2D(n_class, 1, activation = 'softmax')(conv8)
 
     model = tf.keras.Model(inputs = inputs, outputs = conv9)
 
-    model.compile(optimizer = Adam(lr = 0.0001), loss = dice_coef_loss, metrics = dice_coef)
+    model.compile(optimizer = Adam(lr = 0.0001), loss = ['categorical_crossentropy'], metrics = ['accuracy'])
+    #model.compile(optimizer = Adam(lr = 0.0001), loss = [dice_coef_loss], metrics = [dice_coef])
     if(pretrained_weights):
     	model.load_weights(pretrained_weights)
 
