@@ -4,12 +4,11 @@
 
 # This jupyter notebook presents all requirements needed to achieve pixel-level semantic segmentation using images. 
 
-
 # Step 1: Package requirements
--Tensorflow>=2.0
--numpy
--skimage.io
--skimage.transform
+* Tensorflow>=2.0
+* numpy
+* skimage.io
+* skimage.transform
 
 # Step 2: Train and Test Data
 Download the DIARETDB1 data set page:
