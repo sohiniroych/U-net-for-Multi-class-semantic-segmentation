@@ -43,6 +43,10 @@ Download the DIARETDB1 data set page:
  * The tensorboard graphs are as follows:
  ![Tensorboard losses after 80 epochs](images/tensorboard.png)
  
+ # How to avoid possible errors?
+ The key component of this U-net framework is that input is an image and output is also an image. To use the code in this repo AS IS, you HAVE TO unpack the data set as suggested in Step 2. One way to detect if your Path is incorrectly set is, you will get the message: "Found 0 images beloning to 1 classes". This means the images and GT are not detected. If images are not detected, this will lead to a "peek" error while model.fit command is run. 
+Finally, for tensorboard, if no visualization is created, check the 'logs' folder. If a recored exists then rerun the tensorboard command. This should get things started.
+ 
  ## The segmentation perfromances on test images are: 
   
  * Sample examples are:
