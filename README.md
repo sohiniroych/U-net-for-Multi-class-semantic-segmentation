@@ -1,6 +1,10 @@
 # U-net-for-Multi-class-semantic-segmentation
 
  This example demonstrates the use of U-net model for pathology segmentation on retinal images. This supports binary and multi-class segmentation.
+ 
+# Google Colab support
+
+The Google colab folder contains code to help replicate the process for the DIARETDB1 data set. The folder structures are automatically created using the Step 1 code and the U-net is implemented using the Step 2 code.
 
 # This jupyter notebook presents all requirements needed to achieve pixel-level semantic segmentation using images. 
 
