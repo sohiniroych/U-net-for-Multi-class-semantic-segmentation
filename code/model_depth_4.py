@@ -7,7 +7,7 @@ from tensorflow.keras.models import *
 from tensorflow.keras.layers import *
 from tensorflow.keras.optimizers import *
 from tensorflow.keras.callbacks import ModelCheckpoint, LearningRateScheduler
-from tensorflow.keras import backend as keras
+from tensorflow.keras import backend as K
 import tensorflow as tf
 
 
@@ -82,7 +82,7 @@ def unet(pretrained_weights = None,input_size=(256,256,1), n_class=3):
  
     model = tf.keras.Model(inputs = inputs, outputs = conv10)
 
-    model.compile(optimizer = Adam(lr = 0.0001), loss = ['categorical_crossentropy'], metrics = ['accuracy'])
+    model.compile(optimizer = Adam(lr = 0.0001), loss = ['binary_crossentropy'], metrics = ['accuracy'])
     #model.compile(optimizer = Adam(lr = 0.0001), loss = [dice_coef_loss], metrics = [dice_coef])
     
 
