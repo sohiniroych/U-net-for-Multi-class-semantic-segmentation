@@ -76,7 +76,7 @@ def unet(pretrained_weights = None,input_size=(512,512,1), n_class=3):
 
     model = tf.keras.Model(inputs = inputs, outputs = conv9)
 
-    model.compile(optimizer = Adam(lr = 0.0001), loss = ['categorical_crossentropy'], metrics = ['accuracy'])
+    model.compile(optimizer = Adam(lr = 0.0001), loss = ['binary_crossentropy'], metrics = ['accuracy'])
     #model.compile(optimizer = Adam(lr = 0.0001), loss = [dice_coef_loss], metrics = [dice_coef])
     if(pretrained_weights):
     	model.load_weights(pretrained_weights)
